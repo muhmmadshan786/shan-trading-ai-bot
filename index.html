@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>Shan Trading AI Bot</title>
-<style>
 
+<style>
 body{
 background:#000;
 color:white;
@@ -16,14 +16,14 @@ padding:20px;
 background:#111;
 padding:20px;
 border-radius:15px;
-max-width:400px;
+max-width:420px;
 margin:auto;
 }
 
 select{
-width:90%;
+width:100%;
 padding:12px;
-margin:10px;
+margin:10px 0;
 background:#222;
 color:white;
 border:1px solid #00ff66;
@@ -31,27 +31,29 @@ border-radius:10px;
 }
 
 button{
-background:#00cc44;
-color:white;
+width:100%;
 padding:15px;
+font-size:18px;
+background:#00cc44;
 border:none;
 border-radius:10px;
-width:90%;
-font-size:18px;
+color:white;
+cursor:pointer;
 }
 
 .signal{
 font-size:35px;
 margin-top:20px;
-color:#00ff66;
+font-weight:bold;
 }
 
 .timer{
 font-size:22px;
-margin-top:10px;
+margin-top:15px;
+color:#00ff66;
 }
-
 </style>
+
 </head>
 
 <body>
@@ -60,14 +62,14 @@ margin-top:10px;
 
 <h1>Shan Trading AI Bot</h1>
 
-<select>
+<select id="pair">
 <option>EUR/USD OTC</option>
 <option>GBP/USD OTC</option>
 <option>AUD/USD OTC</option>
 <option>USD/JPY OTC</option>
 </select>
 
-<select>
+<select id="time">
 
 <option>5 Seconds</option>
 <option>10 Seconds</option>
@@ -81,25 +83,57 @@ margin-top:10px;
 
 </select>
 
-<button>
-
+<button onclick="signal()">
 GET SIGNAL
-
 </button>
 
-<div class="signal">
-
-🟢 UP
-
+<div class="signal" id="result">
+WAITING...
 </div>
 
-<div class="timer">
-
-00:05
-
+<div class="timer" id="timer">
+00
 </div>
 
 </div>
+
+<script>
+
+function signal(){
+
+let s=Math.random();
+
+if(s>0.5){
+
+document.getElementById("result").innerHTML="🟢 UP";
+
+}else{
+
+document.getElementById("result").innerHTML="🔴 DOWN";
+
+}
+
+let count=5;
+
+document.getElementById("timer").innerHTML=count;
+
+let x=setInterval(function(){
+
+count--;
+
+document.getElementById("timer").innerHTML=count;
+
+if(count<=0){
+
+clearInterval(x);
+
+}
+
+},1000);
+
+}
+
+</script>
 
 </body>
 </html>
